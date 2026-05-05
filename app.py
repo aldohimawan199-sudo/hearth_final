@@ -215,28 +215,35 @@ tab1, tab2 = st.tabs(["  Manual Input  ", "  Upload File  "])
 with tab1:
 
    
-    # ============================================================
-    # EDUKASI PENYAKIT JANTUNG
-    # ============================================================
-    st.markdown("### Heart Disease Education")
+    st.markdown("""
+<div style="color: #f0ede8;">
 
-    st.write("""
-    Penyakit jantung adalah salah satu penyebab kematian tertinggi di dunia. 
-    Kondisi ini terjadi ketika fungsi jantung terganggu akibat penyempitan 
-    pembuluh darah, tekanan darah tinggi, atau faktor gaya hidup.
-    """)
+<h3>Heart Disease Education</h3>
 
-    st.write("**Faktor risiko utama:**")
-    st.write("""
-    - Tekanan darah tinggi (Hypertension)
-    - Kadar kolesterol tinggi
-    - Gula darah tinggi (Diabetes)
-    - Kurang aktivitas fisik
-    - Merokok
-    """)
+<p>
+Penyakit jantung adalah salah satu penyebab kematian tertinggi di dunia. 
+Kondisi ini terjadi ketika fungsi jantung terganggu akibat penyempitan 
+pembuluh darah, tekanan darah tinggi, atau faktor gaya hidup.
+</p>
 
-    st.info("Aplikasi ini membantu prediksi, namun bukan pengganti diagnosis medis.")
+<p><b>Faktor risiko utama:</b></p>
 
+<ul>
+    <li>Tekanan darah tinggi (Hypertension)</li>
+    <li>Kadar kolesterol tinggi</li>
+    <li>Gula darah tinggi (Diabetes)</li>
+    <li>Kurang aktivitas fisik</li>
+    <li>Merokok</li>
+</ul>
+
+<p>
+Aplikasi ini membantu memprediksi risiko penyakit jantung menggunakan Machine Learning, 
+namun <b>bukan pengganti diagnosis medis</b>.
+</p>
+
+</div>
+""", unsafe_allow_html=True)
+    
     # ============================================================
     # FORM INPUT
     # ============================================================
