@@ -214,37 +214,35 @@ tab1, tab2 = st.tabs(["  Manual Input  ", "  Upload File  "])
 # ──────────────────────────────────────────
 with tab1:
 
-    # ============================================================
-    # EDUKASI PENYAKIT JANTUNG
-    # ============================================================
-   st.markdown("""
-<div class='card'>
-    <p class='section-label'>Heart Disease Education</p>
+    # EDUKASI
+    st.markdown("""
+    <div class='card'>
+        <p class='section-label'>Heart Disease Education</p>
 
-    <p style='color:#bbb; font-size:0.9rem; line-height:1.6'>
-    Penyakit jantung adalah salah satu penyebab kematian tertinggi di dunia. 
-    Kondisi ini terjadi ketika fungsi jantung terganggu akibat penyempitan 
-    pembuluh darah, tekanan darah tinggi, atau faktor gaya hidup.
-    </p>
+        <p style='color:#bbb; font-size:0.9rem; line-height:1.6'>
+        Penyakit jantung adalah salah satu penyebab kematian tertinggi di dunia. 
+        Kondisi ini terjadi ketika fungsi jantung terganggu akibat penyempitan 
+        pembuluh darah, tekanan darah tinggi, atau faktor gaya hidup.
+        </p>
 
-    <p style='color:#999; font-size:0.85rem; margin-top:10px;'>
-    <b>Faktor risiko utama:</b>
-    </p>
+        <p style='color:#999; font-size:0.85rem; margin-top:10px;'>
+        <b>Faktor risiko utama:</b>
+        </p>
 
-    <ul style='color:#777; font-size:0.85rem; margin-top:-10px;'>
-        <li>Tekanan darah tinggi (Hypertension)</li>
-        <li>Kadar kolesterol tinggi</li>
-        <li>Gula darah tinggi (Diabetes)</li>
-        <li>Kurang aktivitas fisik</li>
-        <li>Merokok</li>
-    </ul>
+        <ul style='color:#777; font-size:0.85rem;'>
+            <li>Tekanan darah tinggi (Hypertension)</li>
+            <li>Kadar kolesterol tinggi</li>
+            <li>Gula darah tinggi (Diabetes)</li>
+            <li>Kurang aktivitas fisik</li>
+            <li>Merokok</li>
+        </ul>
 
-    <p style='color:#777; font-size:0.85rem; margin-top:10px;'>
-    Aplikasi ini membantu memprediksi risiko penyakit jantung menggunakan Machine Learning, 
-    namun <b>bukan pengganti diagnosis medis</b>.
-    </p>
-</div>
-""", unsafe_allow_html=True)
+        <p style='color:#777; font-size:0.85rem;'>
+        Aplikasi ini membantu memprediksi risiko penyakit jantung menggunakan Machine Learning, 
+        namun <b>bukan pengganti diagnosis medis</b>.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
 
     # ============================================================
     # FORM INPUT
