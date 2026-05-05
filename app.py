@@ -214,35 +214,37 @@ tab1, tab2 = st.tabs(["  Manual Input  ", "  Upload File  "])
 # ──────────────────────────────────────────
 with tab1:
 
-    # EDUKASI
-   st.markdown("""
-<div class='card'>
-    <p class='section-label'>Heart Disease Education</p>
+    # ============================================================
+    # EDUKASI PENYAKIT JANTUNG
+    # ============================================================
+    st.markdown("""
+    <div class='card'>
+        <p class='section-label'>Heart Disease Education</p>
 
-    <p style='color:#bbb; font-size:0.9rem; line-height:1.6'>
-    Penyakit jantung adalah salah satu penyebab kematian tertinggi di dunia. 
-    Kondisi ini terjadi ketika fungsi jantung terganggu akibat penyempitan 
-    pembuluh darah, tekanan darah tinggi, atau faktor gaya hidup.
-    </p>
+        <p style='color:#bbb; font-size:0.9rem; line-height:1.6'>
+        Penyakit jantung adalah salah satu penyebab kematian tertinggi di dunia. 
+        Kondisi ini terjadi ketika fungsi jantung terganggu akibat penyempitan 
+        pembuluh darah, tekanan darah tinggi, atau faktor gaya hidup.
+        </p>
 
-    <p style='color:#999; font-size:0.85rem; margin-top:10px;'>
-    <b>Faktor risiko utama:</b>
-    </p>
+        <p style='color:#999; font-size:0.85rem; margin-top:10px;'>
+        <b>Faktor risiko utama:</b>
+        </p>
 
-    <ul style='color:#777; font-size:0.85rem;'>
-        <li>Tekanan darah tinggi (Hypertension)</li>
-        <li>Kadar kolesterol tinggi</li>
-        <li>Gula darah tinggi (Diabetes)</li>
-        <li>Kurang aktivitas fisik</li>
-        <li>Merokok</li>
-    </ul>
+        <ul style='color:#777; font-size:0.85rem;'>
+            <li>Tekanan darah tinggi (Hypertension)</li>
+            <li>Kadar kolesterol tinggi</li>
+            <li>Gula darah tinggi (Diabetes)</li>
+            <li>Kurang aktivitas fisik</li>
+            <li>Merokok</li>
+        </ul>
 
-    <p style='color:#777; font-size:0.85rem;'>
-    Aplikasi ini membantu memprediksi risiko penyakit jantung menggunakan Machine Learning, 
-    namun <b>bukan pengganti diagnosis medis</b>.
-    </p>
-</div>
-""", unsafe_allow_html=True)
+        <p style='color:#777; font-size:0.85rem;'>
+        Aplikasi ini membantu memprediksi risiko penyakit jantung menggunakan Machine Learning, 
+        namun <b>bukan pengganti diagnosis medis</b>.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
 
     # ============================================================
     # FORM INPUT
@@ -251,23 +253,38 @@ with tab1:
     st.markdown("<p class='section-label'>Patient Information</p>", unsafe_allow_html=True)
 
     c1, c2 = st.columns(2)
+
     with c1:
         age = st.number_input("Age", 1, 100, 50)
-        gender = st.selectbox("Gender", [1, 0],
-                              format_func=lambda x: "Male" if x == 1 else "Female")
-        chestpain = st.selectbox("Chest Pain Type", [0,1,2,3],
-                                format_func=lambda x: {
-                                    0:"Typical Angina",
-                                    1:"Atypical Angina",
-                                    2:"Non-Anginal",
-                                    3:"Asymptomatic"
-                                }[x])
+
+        gender = st.selectbox(
+            "Gender",
+            [1, 0],
+            format_func=lambda x: "Male" if x == 1 else "Female"
+        )
+
+        chestpain = st.selectbox(
+            "Chest Pain Type",
+            [0, 1, 2, 3],
+            format_func=lambda x: {
+                0: "Typical Angina",
+                1: "Atypical Angina",
+                2: "Non-Anginal",
+                3: "Asymptomatic"
+            }[x]
+        )
+
         restingBP = st.number_input("Resting Blood Pressure (mmHg)", 50, 250, 120)
 
     with c2:
         serumcholestrol = st.number_input("Serum Cholesterol (mg/dl)", 0, 700, 200)
-        fastingbloodsugar = st.selectbox("Fasting Blood Sugar > 120 mg/dl", [0, 1],
-                                         format_func=lambda x: "Yes" if x == 1 else "No")
+
+        fastingbloodsugar = st.selectbox(
+            "Fasting Blood Sugar > 120 mg/dl",
+            [0, 1],
+            format_func=lambda x: "Yes" if x == 1 else "No"
+        )
+
         maxheartrate = st.number_input("Max Heart Rate Achieved", 60, 220, 150)
 
     st.markdown("</div>", unsafe_allow_html=True)
@@ -276,12 +293,18 @@ with tab1:
     # PREDICTION
     # ============================================================
     if st.button("Predict", key="btn_manual"):
+
         pred, prob = predict_single({
-            'age': age, 'gender': gender, 'chestpain': chestpain,
-            'restingBP': restingBP, 'serumcholestrol': serumcholestrol,
-            'fastingbloodsugar': fastingbloodsugar, 'maxheartrate': maxheartrate
+            'age': age,
+            'gender': gender,
+            'chestpain': chestpain,
+            'restingBP': restingBP,
+            'serumcholestrol': serumcholestrol,
+            'fastingbloodsugar': fastingbloodsugar,
+            'maxheartrate': maxheartrate
         })
 
+        # RESULT
         if pred == 1:
             st.markdown(f"""
             <div class="result-high">
@@ -289,7 +312,8 @@ with tab1:
                 <p style="color:#999;">Indicators of heart disease detected.</p>
                 <div class="prob-num" style="color:#e05c5c;">{prob*100:.1f}%</div>
                 <div class="prob-label">Probability of Heart Disease</div>
-            </div>""", unsafe_allow_html=True)
+            </div>
+            """, unsafe_allow_html=True)
         else:
             st.markdown(f"""
             <div class="result-low">
@@ -297,7 +321,8 @@ with tab1:
                 <p style="color:#999;">No significant indicators detected.</p>
                 <div class="prob-num" style="color:#2e9e62;">{(1-prob)*100:.1f}%</div>
                 <div class="prob-label">Probability of No Disease</div>
-            </div>""", unsafe_allow_html=True)
+            </div>
+            """, unsafe_allow_html=True)
 
         # ============================================================
         # WARNING MEDIS
