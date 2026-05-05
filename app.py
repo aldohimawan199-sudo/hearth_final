@@ -322,24 +322,44 @@ with tab2:
 
     uploaded = st.file_uploader("", type=['csv', 'xlsx'], label_visibility="collapsed")
 
-    if uploaded:
+    if uploaded is not None:
         try:
-            df_up = pd.read_csv(uploaded) if uploaded.name.endswith('.csv') else pd.read_excel(uploaded)
+            # ============================================================
+            # READ FILE
+            # ============================================================
+            if uploaded.name.endswith('.csv'):
+                df_up = pd.read_csv(uploaded)
+            else:
+                df_up = pd.read_excel(uploaded)
+
             st.markdown(f"<p style='color:#555; font-size:0.82rem;'>{len(df_up)} rows detected</p>", unsafe_allow_html=True)
             st.dataframe(df_up.head(), use_container_width=True)
+
             st.markdown("</div>", unsafe_allow_html=True)
 
+            # ============================================================
+            # BUTTON PREDICT
+            # ============================================================
             if st.button("Run Prediction", key="btn_batch"):
+
                 missing = [c for c in FEATURE_COLS if c not in df_up.columns]
+
                 if missing:
                     st.error(f"Missing columns: {missing}")
                 else:
                     preds, probs = predict_batch(df_up)
+
                     df_result = df_up.copy()
                     df_result['probability_%'] = (probs * 100).round(2)
-                    df_result['prediction']    = preds
-                    df_result['result']        = df_result['prediction'].map({1:'Heart Disease', 0:'No Disease'})
+                    df_result['prediction'] = preds
+                    df_result['result'] = df_result['prediction'].map({
+                        1: 'Heart Disease',
+                        0: 'No Disease'
+                    })
 
+                    # ============================================================
+                    # RESULT DISPLAY
+                    # ============================================================
                     st.markdown("<div class='card'>", unsafe_allow_html=True)
                     st.markdown("<p class='section-label'>Results</p>", unsafe_allow_html=True)
 
@@ -354,29 +374,33 @@ with tab2:
                     )
 
                     # ============================================================
-# WARNING MEDIS (BATCH)
-# ============================================================
-st.warning("""
-Hasil prediksi ini hanya sebagai alat bantu analisis.
+                    # WARNING (FIXED POSITION)
+                    # ============================================================
+                    st.warning("""
+                    Hasil prediksi ini hanya sebagai alat bantu analisis.
 
-⚠️ Setiap pasien tetap harus melakukan pemeriksaan langsung ke dokter 
-untuk diagnosis yang akurat dan penanganan yang tepat.
-""")
+                    ⚠️ Setiap pasien tetap harus melakukan pemeriksaan langsung ke dokter 
+                    untuk diagnosis yang akurat dan penanganan yang tepat.
+                    """)
 
+                    # ============================================================
+                    # DOWNLOAD
+                    # ============================================================
                     st.download_button(
                         "Download Results (CSV)",
                         data=df_result.to_csv(index=False).encode('utf-8'),
                         file_name="cardiopredict_results.csv",
                         mime='text/csv'
                     )
+
                     st.markdown("</div>", unsafe_allow_html=True)
 
         except Exception as e:
             st.error(f"Error: {e}")
             st.markdown("</div>", unsafe_allow_html=True)
+
     else:
         st.markdown("</div>", unsafe_allow_html=True)
-
 # ============================================================
 # Footer
 # ============================================================
